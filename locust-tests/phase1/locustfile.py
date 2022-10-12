@@ -20,25 +20,31 @@ class FetchCoupons(HttpUser):
 #     @task
 #     def fetchCouponListing(self):
 #         self.client.get("/offers/listing", headers={"customer":couponConstants.CUSTOMER_ID, "appversion" : couponConstants.APP_VERSION}, json = {
-#     "city": couponConstants.CITY,
+#     "city": "Bangalore",
 #     "pickup": {
-#         "hex": couponConstants.PICK_HEX,
-#         "cluster": couponConstants.PICK_CLUSTER
+#         "hex": "8861892735fffff",
+#         "cluster": "Sarjapur Road"
 #     },
 #     "drop": {
-#         "hex": couponConstants.DROP_HEX,
-#         "cluster": couponConstants.DROP_CLUSTER
+#         "hex": "8861892735fffff",
+#         "cluster": "Sarjapur Road"
 #     },
-#     "distance": couponConstants.DISTANCE,
+#     "distanceInKms": 0.4588557078828423,
 #     "channel": {
-#         "name": couponConstants.CHANNEL_NAME,
-#         "host": couponConstants.CHANNEL_HOST
+#         "name": "app",
+#         "host": "android"
 #     },
 #     "quotes": [
 #         {
-#             "serviceId": couponConstants.SERVICE_ID,
-#             "serviceDetailId": couponConstants.SERVICE_DETAIL_ID,
-#             "baseAmount": 10.0,
+#             "serviceId": "5bd6c6e2e79cc313a94728d0",
+#             "serviceDetailId": "5bd6c6e2e79cc313a94728d0",
+#             "baseAmount": 70.0,
+#             "offersExcluded": {}
+#         },
+#         {
+#             "serviceId": "572e29b0116b5db3057bd821",
+#             "serviceDetailId": "57370b61a6855d70057417d1",
+#             "baseAmount": 70,
 #             "offersExcluded": {}
 #         }
 #     ]
@@ -47,31 +53,48 @@ class FetchCoupons(HttpUser):
 #     @task
 #     def fetchCouponDetails(self):
 #         self.client.get("/offers/details", headers={"customer":couponConstants.CUSTOMER_ID, "appversion" : couponConstants.APP_VERSION}, json = {
-#     "city": couponConstants.CITY,
+#     "city": "Bangalore",
 #     "pickup": {
-#         "hex": couponConstants.PICK_HEX,
-#         "cluster": couponConstants.PICK_CLUSTER
+#         "hex": "8861892735fffff",
+#         "cluster": "Sarjapur Road"
 #     },
 #     "drop": {
-#         "hex": couponConstants.DROP_HEX,
-#         "cluster": couponConstants.DROP_CLUSTER
+#         "hex": "8861892735fffff",
+#         "cluster": "Sarjapur Road"
 #     },
-#     "distance": couponConstants.DISTANCE,
+#     "distance": 0.883,
 #     "channel": {
-#         "name": couponConstants.CHANNEL_NAME,
-#         "host": couponConstants.CHANNEL_HOST
+#         "name": "app",
+#         "host": "android"
 #     },
 #     "quotes": [
 #         {
-#             "serviceId": couponConstants.SERVICE_ID,
-#             "serviceDetailId": couponConstants.SERVICE_DETAIL_ID,
-#             "baseAmount": 10.0,
+#             "serviceId": "5e79d11d4abaed2515895b62",
+#             "serviceDetailId": "5e79e1474abaede043895b66",
+#             "baseAmount": 7.0,
+#             "offersExcluded": {}
+#         },
+#         {
+#             "serviceId": "5f47ae0cd22ce420065e7a7e",
+#             "serviceDetailId": "5f4cd594f1283d4f1ba11436",
+#             "baseAmount": 3.0,
+#             "offersExcluded": {}
+#         },
+#         {
+#             "serviceId": "5c53562fceb6fc9241980547",
+#             "serviceDetailId": "5e79e1474abaede043895b66",
+#             "baseAmount": 13.0,
+#             "offersExcluded": {}
+#         },
+#         {
+#             "serviceId": "572e29b0116b5db3057bd821",
+#             "serviceDetailId": "57370b61a6855d70057417d1",
+#             "baseAmount": 5.0,
 #             "offersExcluded": {}
 #         }
 #     ],
-#     "offerInclude" : [],
-#     "couponCode": "LOCDISP",
-#     "paymentType": "rapido"
+#     "couponCode" : "TESTDEMOLOCATION",
+#     "paymentType" : "rapido"
 # })
 
     @task
@@ -91,27 +114,36 @@ class FetchCoupons(HttpUser):
     "dropLocation": {
         "lat": 12.91096317697067,
         "lng":  77.67753515392542
-    },
-    "fareEstimateId":"63441a051017186de0e3fca1"
+    }
 
 })
 
     @task
     def validateOfferFromPricing(self):
-        self.client.post("/campaign/api/coupon/check", headers = {"latitude":"22.5900159",
-    "longitude":"88.4009118",
-    "city":"Kolkata",
+        self.client.post("/campaign/api/coupon/check", headers = {"latitude":"12.915072",
+    "longitude":"77.67721",
+    "city":"Bangalore",
     "key":"nqw2amxaq9t7rGzPxFCYHM2G2CUp3cka",
-    "x-consumer-username":"626b8487a2ea2545e8e0d476"}, json = {
-    "couponCode": "PRIWEA",
+    "x-consumer-username":"622c395eb519d9ca6f08bb73", "channel-name" : "app", 
+    "channel-host" : "android", 
+    "appversion" : "400"}, json = {
+    "couponCode": "TESTDEMOLOCATION",
     "drop": {
-        "lat": 22.5900159,
-        "lng": 88.4009118
+        "lat": 12.91096317697067,
+        "lng": 77.67753515392542
     },
-    "paymentType": "cash",
+    "paymentType": "rapido",
     "pickUp": {
-        "lat": 22.5892570981467,
-        "lng": 88.4087748080492
+        "lat":12.914985723701825,
+        "lng": 77.67726894468069
     }
+   
 })
+
+#     @task
+#     def postOrderProcessorAPITest(self):
+#         self.client.post("/bulk/userOfferLimit/624686497ddbcb80da2543f1", headers = {"authorization", "abhi"},
+#          json = {"offers":[
+#     "5f6b3c5251e2871e2eb9636d"
+# ],"offerType":"coupon"})
 
